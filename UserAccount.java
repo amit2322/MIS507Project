@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mainproject;
-
-import java.util.Scanner;
+package project;
 
 /**
  *
  * @author Amit
  */
-public class UserAccount implements Observer{
-
+ import java.io.*;
+ 
+public class UserAccount {
+    
     public int userId;
     public String userFirstName;
     public String userLastName;
@@ -22,7 +22,8 @@ public class UserAccount implements Observer{
     public String payableTo;
     public String receivableBy;
 
-    public UserAccount(int userId, String userFirstName, String userLastName, String userEmail, double amountOwed, double amountReceivable, String payableTo, String receivableBy) {
+  //  public UserAccount(int userId, String userFirstName, String userLastName, String userEmail, double amountOwed, double amountReceivable, //String payableTo, String receivableBy) {
+  public UserAccount(int userId, String userFirstName, String userLastName, String userEmail, double amountOwed, double amountReceivable){
         this.userId = userId;
         this.userFirstName = userFirstName;
         this.userLastName = userLastName;
@@ -96,11 +97,26 @@ public class UserAccount implements Observer{
     public void setReceivableBy(String receivableBy) {
         this.receivableBy = receivableBy;
     }
+   
     
-    public void update(String notification) {
-  System.out.println("E-mailing " +getUserEmail());
-  System.out.println("Hello "+getUserFirstName());
-  System.out.println("You owe "+getPayableTo()+" $"+getAmountOwed());
-  System.out.println(getReceivableBy()+" owes you $"+amountReceivable+"\n");
+    public static void main(String[] args) {
+        // TODO code application logic here
+        Scanner sc = new Scanner(System.in);
+        //Scanner to get user input for number of users
+        System.out.println("Enter number of Users");
+    
+        int no_of_users = sc.nextInt();
+        for(int i=0;i<no_of_users;i++){
+            System.out.println("Enter First Name: ");
+            String fname = sc.nextLine();   
+            System.out.println("Enter Last Name: ");
+            String lname  = sc.nextLine();
+            System.out.println("Enter email Id Name: ");
+            String email = sc.nextLine();
+            UserAccount fname = new UserAccount(i, fname, lname, email,0,0);        
+        }
+        
+        
     }
+    
 }
