@@ -7,7 +7,6 @@ package mainproject;
 
 import java.util.ArrayList;
 import java.util.List;
-//import com.sun.javafx.applet.Splash;
 import java.util.Scanner;
 
 /**
@@ -33,6 +32,26 @@ public class SplitwiseDemo {
     	mypaymethod.payUsingSelectedPaymentType(payerName, payeeName, paymentAmount);
     }
     
+    public void ShowAccountsSummary(List<UserAccount> groupDetails){
+        System.out.println("FirstName\t "
+                + "LastName\t "
+                + "Email\t "
+                + "AmountOwed\t "
+                + "AmountReceivable\t "
+                + "PayableTo\t "
+                + "ReceivableBy\n");
+        for (int i = 0; i < groupDetails.size(); i++) {
+            System.out.println(groupDetails.get(i).getUserFirstName()+"\t\t"+
+                    groupDetails.get(i).getUserLastName()+"\t\t"+
+                    groupDetails.get(i).getAmountOwed()+"\t\t"+
+                    groupDetails.get(i).getAmountReceivable()+"\t\t"+
+                    groupDetails.get(i).getPayableTo()+"\t\t"+
+                    groupDetails.get(i).getReceivableBy()+"\t\t"                    
+                    );            
+        }
+        System.out.println("\n");
+    }
+    
     public static void main(String[] args) {
         /*
     	UserAccount prashPerson=new UserAccount(1,"Prashant","Karnad","Prash1@gmail.com",0.0,25.0,"Murali","Amit");
@@ -52,20 +71,26 @@ public class SplitwiseDemo {
         groupMIS.setNotification("Notify");
         */
         //Strategy Design pattern begins
-        String firstName="", lastName="", emailId="",selectedPaymentMode="", paymentAmount="",groupName="";
+        String firstName="";
+        String lastName="";
+        String emailId="";
+        String selectedPaymentMode="";
+        String paymentAmount="";
+        String groupName="";
         String NumberOfUsers; 
         Payment p1, p2; 
         SplitwiseDemo objDemo = new SplitwiseDemo();
         Scanner in = new Scanner(System.in);
-        System.out.println("Enter No of Users");
-        NumberOfUsers = in.nextLine();
-        int maxUsers=Integer.parseInt(NumberOfUsers);
-        List<UserAccount> group= new ArrayList<UserAccount>();
-        System.out.println("Enter Group name:");
+        System.out.println("Welcome to the design patterns demo !!");
+        System.out.println("Enter Group name:");       
         groupName = in.nextLine();
+        System.out.println("Enter No of Users to be added to the group:");
+        NumberOfUsers = in.nextLine();
+        int maxUsers = Integer.parseInt(NumberOfUsers);
+        List<UserAccount> group= new ArrayList<UserAccount>(); 
         for(int i=0;i<maxUsers;i++){
-        	
-        	  System.out.println("Enter first name:");
+              System.out.println("User number " + (i+1) + " details");
+              System.out.println("Enter first name:");
               firstName = in.nextLine();
               System.out.println("Enter last name:");
               lastName = in.nextLine();
@@ -73,9 +98,11 @@ public class SplitwiseDemo {
               emailId = in.nextLine();
               
               UserAccount userAcct=new UserAccount(i,firstName,lastName,emailId,0.0,0.0,"","");
-              group.add(userAcct);
+              group.add(userAcct);           
         }
-       
+                
+        System.out.println("All users successfully added to the group:" + groupName);
+        objDemo.ShowAccountsSummary(group);
         System.out.println("Choose payment mode:\n 1. P for Paypal\n2. V for Venmo\n");
         selectedPaymentMode = in.nextLine();
 
