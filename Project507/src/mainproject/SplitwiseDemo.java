@@ -6,11 +6,7 @@ import java.util.Scanner;
 
 public class SplitwiseDemo {
     public Payment selectPay (String select) {
-		if ("p".equals(select)) {
-		    return new Paypal();
-		} else {
-		    return new Venmo();
-		}
+		return Payment.getInstance(select);
     }
 
     public void calcuateAmount(UserAccount[] users,double amount){
@@ -70,6 +66,8 @@ public class SplitwiseDemo {
         String paymentAmount="";
         String groupName="";
         String NumberOfUsers; 
+        String payerName;
+        String payeeName;
         Payment p1, p2; 
         SplitwiseDemo objDemo = new SplitwiseDemo();
         Scanner in = new Scanner(System.in);
@@ -95,14 +93,17 @@ public class SplitwiseDemo {
                 
         System.out.println("All users successfully added to the group:" + groupName);
         objDemo.ShowAccountsSummary(group);
+        System.out.println("Payments................\n");
+        System.out.println("Enter payer name:");
+        payerName = in.nextLine();
+        System.out.println("Enter payee name:");
+        payeeName = in.nextLine();
+        System.out.println("Enter payment amount:");
+        paymentAmount = in.nextLine();
         System.out.println("Choose payment mode:\n 1. P for Paypal\n2. V for Venmo\n");
         selectedPaymentMode = in.nextLine();
-
-  /*
-    p1 = objDemo.selectPay(selectedPaymentMode.toLowerCase());	
+	p1 = objDemo.selectPay(selectedPaymentMode.toLowerCase());
+	
 	objDemo.mypay(p1, payerName, payeeName, paymentAmount);
-    p1 = objDemo.selectPay(selectedPaymentMode.toLowerCase());
-	objDemo.mypay(p1, payerName, payeeName, paymentAmount);
-  */  
     }
 }
