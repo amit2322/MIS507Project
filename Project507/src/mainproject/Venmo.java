@@ -2,6 +2,7 @@
 package mainproject;
 
 public class Venmo extends Payment {
+    private static Venmo instance;
     public void  initPaymentType () {
 	System.out.println("Intializing Venmo\n");
     }
@@ -10,5 +11,11 @@ public class Venmo extends Payment {
         System.out.println("Intiating transfer");
         System.out.println("Transferring $" +paymentAmount +" to " +payeeName);
 	System.out.println("Payment successfully made via Venmo\n");
+    }
+    public static Venmo getInstance(){
+        if(instance == null){
+            instance = new Venmo();
+        }
+        return instance;
     }
 }
