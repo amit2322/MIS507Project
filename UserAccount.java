@@ -3,27 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package project;
+package mainproject;
 
 /**
  *
  * @author Amit
  */
  import java.io.*;
+import java.util.Scanner;
  
-public class UserAccount {
+public class UserAccount implements Observer{
     
-    public int userId;
-    public String userFirstName;
-    public String userLastName;
-    public String userEmail;
-    public double amountOwed;
-    public double amountReceivable;
-    public String payableTo;
-    public String receivableBy;
+    private int userId;
+    private String userFirstName;
+    private String userLastName;
+    private String userEmail;
+    private double amountOwed;
+    private double amountReceivable;
+    private String payableTo;
+    private String receivableBy;
+    private boolean isPayable;
+    
 
-  //  public UserAccount(int userId, String userFirstName, String userLastName, String userEmail, double amountOwed, double amountReceivable, //String payableTo, String receivableBy) {
-  public UserAccount(int userId, String userFirstName, String userLastName, String userEmail, double amountOwed, double amountReceivable){
+//  public UserAccount(int userId, String userFirstName, String userLastName, String userEmail, double amountOwed, double amountReceivable, //String payableTo, String receivableBy) {
+  public UserAccount(int userId, String userFirstName, String userLastName, String userEmail, double amountOwed, double amountReceivable, String payableTo, String receivableBy){
         this.userId = userId;
         this.userFirstName = userFirstName;
         this.userLastName = userLastName;
@@ -98,7 +101,14 @@ public class UserAccount {
         this.receivableBy = receivableBy;
     }
    
-    
+    public boolean isPayable() {
+  		return isPayable;
+  	}
+
+  	public void setPayable(boolean isPayable) {
+  		this.isPayable = isPayable;
+  	}
+  	
     public static void main(String[] args) {
         // TODO code application logic here
         Scanner sc = new Scanner(System.in);
@@ -113,10 +123,19 @@ public class UserAccount {
             String lname  = sc.nextLine();
             System.out.println("Enter email Id Name: ");
             String email = sc.nextLine();
-            UserAccount fname = new UserAccount(i, fname, lname, email,0,0);        
+            UserAccount uA = new UserAccount(i, fname, lname, email,0,0,"","");        
         }
-        
-        
     }
+
+	@Override
+	public void update(String notification) {
+		  System.out.println("E-mailing " +getUserEmail());
+		  System.out.println("Hello "+getUserFirstName());
+		  if(this.isPayable()){
+			  System.out.println("You owe "+getPayableTo()+" $"+getAmountOwed());
+		  }else{
+			  System.out.println(getReceivableBy()+" owes you $"+amountReceivable+"\n");
+		  }
+	}
     
 }

@@ -5,7 +5,7 @@
  */
 package mainproject;
 
-import com.sun.javafx.applet.Splash;
+//import com.sun.javafx.applet.Splash;
 import java.util.Scanner;
 
 /**
@@ -14,17 +14,22 @@ import java.util.Scanner;
  */
 public class SplitwiseDemo {
     public Payment selectPay (String select) {
-	if ("p".equals(select)) {
-	    return new Paypal();
-	} else {
-	    return new Venmo();
-	}
+		if ("p".equals(select)) {
+		    return new Paypal();
+		} else {
+		    return new Venmo();
+		}
     }
 
-    public void mypay (Payment mypaymethod, String payerName, String payeeName, String paymentAmount) {
-	mypaymethod.initPaymentType();
-	mypaymethod.payUsingSelectedPaymentType(payerName, payeeName, paymentAmount);
+    public void calcuateAmount(UserAccount[] users){
+    	
     }
+    
+    public void mypay (Payment mypaymethod, String payerName, String payeeName, String paymentAmount) {
+    	mypaymethod.initPaymentType();
+    	mypaymethod.payUsingSelectedPaymentType(payerName, payeeName, paymentAmount);
+    }
+    
     public static void main(String[] args) {
         UserAccount prashPerson=new UserAccount(1,"Prashant","Karnad","Prash1@gmail.com",0.0,25.0,"Murali","Amit");
         UserAccount akashPerson=new UserAccount(2,"Akash","Joshi","Akash1@gmail.com",0.0,25.0,"Chanpreet","Amit");
@@ -56,8 +61,8 @@ public class SplitwiseDemo {
         paymentAmount = in.nextLine();
         System.out.println("Choose payment mode:\n 1. P for Paypal\n2. V for Venmo\n");
         selectedPaymentMode = in.nextLine();
-	p1 = objDemo.selectPay(selectedPaymentMode.toLowerCase());
 	
-	objDemo.mypay(p1, payerName, payeeName, paymentAmount);
+        p1 = objDemo.selectPay(selectedPaymentMode.toLowerCase());
+	    objDemo.mypay(p1, payerName, payeeName, paymentAmount);
     }
 }

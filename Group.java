@@ -15,46 +15,49 @@ public class Group implements Subject{
     private String groupName;
     String notification;
     public Group(String groupName, String notification) {
- super();
- this.groupName = groupName;
- this.notification=notification;
+		 super();
+		 this.groupName = groupName;
+		 this.notification=notification;
     }
     
     public ArrayList<Observer> getObservers() {
- return observers;
+    	return observers;
     }
+    
     public void setObservers(ArrayList<Observer> observers) {
- this.observers = observers;
+    	this.observers = observers;
     }
 
     public String getGroupName() {
- return groupName;
+    	return groupName;
     }
     public void setgroupName(String groupName) {
- this.groupName = groupName;
+    	this.groupName = groupName;
     }
     
     public String getNotification() {
- return notification;
+    	return notification;
     }
     
     public void setNotification(String notification) {
- this.notification = notification;
- notifyObservers();
+    	this.notification = notification;
+    	notifyObservers();
     }
     
     public void notifyObservers() {
- System.out.println("Notifying Subscribers");
- System.out.println("---------------------");
- for (Observer ob : observers) {
-     ob.update(this.notification );
- }
+		 System.out.println("Notifying Subscribers");
+		 System.out.println("---------------------");
+		 for (Observer ob : observers) {
+		     ob.update(this.notification );
+		 }
     }
+    
     public void registerObserver(Observer observer) {
- observers.add(observer);
+    	observers.add(observer);
     }
+    
     public void removeObserver(Observer observer) {
- observers.remove(observer);
+    	observers.remove(observer);
     }
 }
 
