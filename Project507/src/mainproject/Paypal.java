@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mainproject;
 
-/**
- *
- * @author Amit
- */
 public class Paypal extends Payment {
     public void  initPaymentType () {
 	System.out.println("Intializing Paypal\n");
