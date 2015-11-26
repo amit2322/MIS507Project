@@ -26,7 +26,7 @@ public class SplitwiseDemo {
     public void ShowAccountsSummary(List<UserAccount> groupDetails){
         System.out.println("FirstName\t "
                 + "LastName\t "
-                + "Email\t "
+                + "Email\t\t"
                 + "AmountOwed\t "
                 + "AmountReceivable\t "
                 + "PayableTo\t "
@@ -34,6 +34,7 @@ public class SplitwiseDemo {
         for (int i = 0; i < groupDetails.size(); i++) {
             System.out.println(groupDetails.get(i).getUserFirstName()+"\t\t"+
                     groupDetails.get(i).getUserLastName()+"\t\t"+
+                    groupDetails.get(i).getUserEmail()+"\t\t"+
                     groupDetails.get(i).getAmountOwed()+"\t\t"+
                     groupDetails.get(i).getAmountReceivable()+"\t\t"+
                     groupDetails.get(i).getPayableTo()+"\t\t"+
