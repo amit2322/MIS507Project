@@ -2,7 +2,26 @@
 package mainproject;
 
 public class Venmo extends Payment {
+    public String venmoUserName;
+    public String venmoPassword;
     private static Venmo instance;
+
+    public String getVenmoUserName() {
+        return venmoUserName;
+    }
+
+    public void setVenmoUserName(String venmoUserName) {
+        this.venmoUserName = venmoUserName;
+    }
+
+    public String getVenmoPassword() {
+        return venmoPassword;
+    }
+
+    public void setVenmoPassword(String venmoPassword) {
+        this.venmoPassword = venmoPassword;
+    }
+    
     public void  initPaymentType () {
 	System.out.println("Intializing Venmo\n");
     }

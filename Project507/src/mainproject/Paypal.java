@@ -1,6 +1,25 @@
 package mainproject;
 
 public class Paypal extends Payment {
+    public String paypalUserName;
+    public String paypalPassword;
+
+    public String getPaypalUserName() {
+        return paypalUserName;
+    }
+
+    public void setPaypalUserName(String paypalUserName) {
+        this.paypalUserName = paypalUserName;
+    }
+
+    public String getPaypalPassword() {
+        return paypalPassword;
+    }
+
+    public void setPaypalPassword(String paypalPassword) {
+        this.paypalPassword = paypalPassword;
+    }
+    
     private static Paypal instance;
     @Override
     public void  initPaymentType () {
