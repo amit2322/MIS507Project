@@ -1,7 +1,7 @@
 
 package mainproject;
 
-import static java.lang.System.exit;
+
 import java.util.Scanner;
 
 public class Venmo extends Payment 
@@ -22,7 +22,7 @@ public class Venmo extends Payment
 
     public String getVenmoPassword() 
     {
-        return "venmopassword";
+        return venmoPassword;
     }
 
     public void setVenmoPassword(String venmoPassword) 

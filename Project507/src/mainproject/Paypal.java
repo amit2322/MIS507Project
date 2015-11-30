@@ -18,7 +18,7 @@ public class Paypal extends Payment
 
     public String getPaypalPassword() 
     {
-        return "paypalpassword";
+        return paypalPassword;
     }
 
     public void setPaypalPassword(String paypalPassword) 

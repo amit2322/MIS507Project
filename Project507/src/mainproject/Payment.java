@@ -11,9 +11,13 @@ abstract class Payment
         {
             instance = Paypal.getInstance();
         } 
-        else 
+        else if("v".equals(selectedPaymentMode))
         {
             instance = Venmo.getInstance();
+        }
+        else
+        {
+            instance = CreditCard.getInstance();
         }
         return instance;
     }    

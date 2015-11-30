@@ -59,7 +59,10 @@ public class SplitwiseDemo {
         payeeName = in.nextLine();
         System.out.println("Enter payment amount:");
         paymentAmount = in.nextLine();
-        System.out.println("Choose payment mode:\n 1. P for Paypal\n2. V for Venmo\n");
+        System.out.println("Choose payment mode:\n "
+                + "1. P for Paypal\n"
+                + "2. V for Venmo\n"
+                + "3. C for Credit Card");
         selectedPaymentMode = in.nextLine();
 	p1 = selectPay(selectedPaymentMode.toLowerCase());
         paymentStatus = mypay(p1, payerName, payeeName, paymentAmount);
