@@ -1,10 +1,14 @@
 package mainproject;
 
-public class Paypal extends Payment {
+import java.util.Scanner;
+
+public class Paypal extends Payment 
+{
     public String paypalUserName;
     public String paypalPassword;
 
-    public String getPaypalUserName() {
+    public String getPaypalUserName() 
+    {
         return paypalUserName;
     }
 
@@ -12,27 +16,51 @@ public class Paypal extends Payment {
         this.paypalUserName = paypalUserName;
     }
 
-    public String getPaypalPassword() {
-        return paypalPassword;
+    public String getPaypalPassword() 
+    {
+        return "paypalpassword";
     }
 
-    public void setPaypalPassword(String paypalPassword) {
+    public void setPaypalPassword(String paypalPassword) 
+    {
         this.paypalPassword = paypalPassword;
     }
     
     private static Paypal instance;
     @Override
-    public void  initPaymentType () {
+    public void  initPaymentType () 
+    {
 	System.out.println("Intializing Paypal\n");
     }
     @Override
-    public void payUsingSelectedPaymentType(String payerName, String payeeName, String paymentAmount) {
-        System.out.println("Logging into " +payerName+"'s Paypal Account\n");
-        System.out.println("Intiating transfer");
-        System.out.println("Transferring $" +paymentAmount +" to " +payeeName);
-	System.out.println("Payment successfully made via Paypal\n");
+    public boolean payUsingSelectedPaymentType(String payerName, String payeeName, String paymentAmount) 
+    {
+        boolean paymentStatus;
+        Scanner in = new Scanner(System.in);
+        System.out.println("Please enter your Paypal username:");
+        setPaypalUserName(in.nextLine());
+        System.out.println("Please enter your Paypal password:");
+        setPaypalPassword(in.nextLine());
+        if(getPaypalPassword() == "paypalpassword")
+        {
+            paymentStatus = true;
+            System.out.println("Login successful");
+            System.out.println("Logging into " +payerName+"'s Paypal Account\n");
+            System.out.println("Intiating transfer");
+            System.out.println("Transferring $" +paymentAmount +" to " +payeeName);
+            System.out.println("Payment successfully made via Paypal\n");
+        }
+        else
+        {
+            paymentStatus = false;
+            System.out.println("Login failed");
+            System.out.println("Please try again ...");
+        }
+        return paymentStatus;  
     }
-    public static Paypal getInstance(){
+    
+    public static Paypal getInstance()
+    {
         if(instance == null){
             instance = new Paypal();
         }

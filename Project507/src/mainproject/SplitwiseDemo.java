@@ -14,9 +14,12 @@ public class SplitwiseDemo {
     	balCalc.balanceAccounts(users, amount);
     }
     
-    public void mypay (Payment mypaymethod, String payerName, String payeeName, String paymentAmount) {
+    public boolean mypay (Payment mypaymethod, String payerName, String payeeName, String paymentAmount) 
+    {
+        boolean paymentStatus;
     	mypaymethod.initPaymentType();
-    	mypaymethod.payUsingSelectedPaymentType(payerName, payeeName, paymentAmount);
+    	paymentStatus = mypaymethod.payUsingSelectedPaymentType(payerName, payeeName, paymentAmount);
+        return paymentStatus;
     }
     
     public void ShowAccountsSummary(List<UserAccount> groupDetails){
@@ -38,6 +41,29 @@ public class SplitwiseDemo {
                     );            
         }
         System.out.println("\n");
+    }
+    
+    public boolean MakeAPayment()
+    {
+        Scanner in = new Scanner(System.in);
+        String payerName;
+        String payeeName;
+        String selectedPaymentMode="";
+        String paymentAmount="";
+        Payment p1, p2; 
+        boolean paymentStatus;
+        System.out.println("Payments................\n");
+        System.out.println("Enter payer name:");
+        payerName = in.nextLine();
+        System.out.println("Enter payee name:");
+        payeeName = in.nextLine();
+        System.out.println("Enter payment amount:");
+        paymentAmount = in.nextLine();
+        System.out.println("Choose payment mode:\n 1. P for Paypal\n2. V for Venmo\n");
+        selectedPaymentMode = in.nextLine();
+	p1 = selectPay(selectedPaymentMode.toLowerCase());
+        paymentStatus = mypay(p1, payerName, payeeName, paymentAmount);
+        return paymentStatus;
     }
     
     public static void main(String[] args) {
@@ -69,6 +95,7 @@ public class SplitwiseDemo {
         String payerName;
         String payeeName;
         Payment p1, p2; 
+        boolean paymentStatus;
         SplitwiseDemo objDemo = new SplitwiseDemo();
         Scanner in = new Scanner(System.in);
         System.out.println("Welcome to the design patterns demo !!");
@@ -101,27 +128,27 @@ public class SplitwiseDemo {
         System.out.println("Enter amount you contributed:");
         amountContributed = new Double(in.nextLine());
         
-        for(UserAccount userAcct: group){
-        if(userAcct.getUserFirstName().equals(amountPaidBy)){
-                  userAcct.setPayable(true);
-              }
-        else{
-            userAcct.setPayableTo(amountPaidBy);
-        }
+        for(UserAccount userAcct: group)
+        {
+            if(userAcct.getUserFirstName().equals(amountPaidBy))
+            {
+                userAcct.setPayable(true);
+            }
+            else
+            {
+                userAcct.setPayableTo(amountPaidBy);
+            }
         }
         objDemo.calcuateAmount(group,amountContributed);
         objDemo.ShowAccountsSummary(group);
-        System.out.println("Payments................\n");
-        System.out.println("Enter payer name:");
-        payerName = in.nextLine();
-        System.out.println("Enter payee name:");
-        payeeName = in.nextLine();
-        System.out.println("Enter payment amount:");
-        paymentAmount = in.nextLine();
-        System.out.println("Choose payment mode:\n 1. P for Paypal\n2. V for Venmo\n");
-        selectedPaymentMode = in.nextLine();
-	p1 = objDemo.selectPay(selectedPaymentMode.toLowerCase());
-	
-	objDemo.mypay(p1, payerName, payeeName, paymentAmount);
+        paymentStatus = objDemo.MakeAPayment();
+        if(paymentStatus == true)
+        {
+            System.out.println("Payment Successful");
+        }
+        else
+        {
+            System.out.println("Payment failed");
+        }
     }
 }
