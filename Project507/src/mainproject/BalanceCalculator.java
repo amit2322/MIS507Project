@@ -1,17 +1,27 @@
 package mainproject;
 
+import java.text.DecimalFormat;
+import java.util.List;
+
 public class BalanceCalculator {
 
-	public UserAccount[] balanceAccounts(UserAccount[] users, Double amount){
-		int totalUsers=users.length;
+	public List<UserAccount> balanceAccounts(List<UserAccount> users, Double amount){
+		int totalUsers=users.size();
     	for(UserAccount user: users){
     		if(user.isPayable()){
     			double amtRec= amount - (amount/totalUsers);
+                        amtRec = FormatAmount(amtRec);
     			user.setAmountReceivable(amtRec);
     		}else{
-    			user.setAmountOwed(amount/totalUsers);
+                        double amountOwed = amount/totalUsers;
+                        amountOwed = FormatAmount(amountOwed);
+    			user.setAmountOwed(amountOwed);
     		}
     	}
 	return users;
 	}
+        public double FormatAmount(double amount){
+            DecimalFormat df = new DecimalFormat("#.##");
+            return Double.valueOf(df.format(amount));
+        }
 }

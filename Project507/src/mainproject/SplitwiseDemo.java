@@ -9,7 +9,7 @@ public class SplitwiseDemo {
 		return Payment.getInstance(select);
     }
 
-    public void calcuateAmount(UserAccount[] users,double amount){
+    public void calcuateAmount(List<UserAccount> users,double amount){
     	BalanceCalculator balCalc=new BalanceCalculator();
     	balCalc.balanceAccounts(users, amount);
     }
@@ -88,10 +88,28 @@ public class SplitwiseDemo {
               emailId = in.nextLine();
               
               UserAccount userAcct=new UserAccount(i,firstName,lastName,emailId,0.0,0.0,"","");
+              
               group.add(userAcct);           
         }
-                
+        String amountPaidBy;
+        double amountContributed;
         System.out.println("All users successfully added to the group:" + groupName);
+        objDemo.ShowAccountsSummary(group); 
+        System.out.println("Record a transaction....");
+        System.out.println("Amount paid by:");        
+        amountPaidBy = in.nextLine();
+        System.out.println("Enter amount you contributed:");
+        amountContributed = new Double(in.nextLine());
+        
+        for(UserAccount userAcct: group){
+        if(userAcct.getUserFirstName().equals(amountPaidBy)){
+                  userAcct.setPayable(true);
+              }
+        else{
+            userAcct.setPayableTo(amountPaidBy);
+        }
+        }
+        objDemo.calcuateAmount(group,amountContributed);
         objDemo.ShowAccountsSummary(group);
         System.out.println("Payments................\n");
         System.out.println("Enter payer name:");
