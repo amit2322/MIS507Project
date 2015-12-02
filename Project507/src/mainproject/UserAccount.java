@@ -15,7 +15,7 @@ public class UserAccount implements Observer{
     private String payableTo;
     private String receivableBy;
     private boolean isPayable;
-    
+    private String emailbody;
 
 //  public UserAccount(int userId, String userFirstName, String userLastName, String userEmail, double amountOwed, double amountReceivable, //String payableTo, String receivableBy) {
   public UserAccount(int userId, String userFirstName, String userLastName, String userEmail, double amountOwed, double amountReceivable, String payableTo, String receivableBy){
@@ -119,15 +119,30 @@ public class UserAccount implements Observer{
         }
     }
 
-	@Override
+	
+	
 	public void update(String notification) {
-		  System.out.println("E-mailing " +getUserEmail());
-		  System.out.println("Hello "+getUserFirstName());
-		  if(this.isPayable()){
-			  System.out.println("You owe "+getPayableTo()+" $"+getAmountOwed());
-		  }else{
-			  System.out.println(getReceivableBy()+" owes you $"+amountReceivable+"\n");
-		  }
-	}
+	      emailbody = "Hello" +getUserFirstName() +"\n"+"You owe "+getPayableTo()+" $"+getAmountOwed()+
+	                      getReceivableBy()+" owes you $"+amountReceivable+"\n";
+	      EmailNotification.sendEmail(getUserEmail(),"Payment Details",emailbody );
+	    }
+
+	public void add(String notification) {
+	      emailbody = "Hello "+getUserFirstName()+"\n"+
+	                     "You have been added to the group "+notification+"\n";
+	      EmailNotification.sendEmail(getUserEmail(),"Addition to Group",emailbody );
+	    }
+
+	public void remind(String notification) {
+	      emailbody = "Hello "+getUserFirstName()+"\n"+
+	                     "You owe "+getPayableTo()+" $"+getAmountOwed()+"\n";
+	      EmailNotification.sendEmail(getUserEmail(),"Gentle Reminder to pay",emailbody );
+	    }
+
+	public void paysuccess(String notification) {
+	      emailbody = "Hello "+getUserFirstName()+"\n"+
+	                     "Your payment to "+getPayableTo()+"of $"+getAmountOwed()+"is successful "+"\n";
+         EmailNotification.sendEmail(getUserEmail(),"Payment Success",emailbody );
+	    }
     
 }
