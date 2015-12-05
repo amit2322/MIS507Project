@@ -14,7 +14,7 @@ public class UserAccount implements Observer{
     private double amountReceivable;
     private String payableTo;
     private String receivableBy;
-    private boolean isPayable;
+    private boolean isReceivable;
     private String emailbody;
 
 //  public UserAccount(int userId, String userFirstName, String userLastName, String userEmail, double amountOwed, double amountReceivable, //String payableTo, String receivableBy) {
@@ -93,12 +93,12 @@ public class UserAccount implements Observer{
         this.receivableBy = receivableBy;
     }
    
-    public boolean isPayable() {
-  		return isPayable;
+    public boolean isReceivable() {
+  		return isReceivable;
   	}
 
-  	public void setPayable(boolean isPayable) {
-  		this.isPayable = isPayable;
+  	public void setReceivable(boolean isReceivable) {
+  		this.isReceivable = isReceivable;
   	}
   	
     public static void main(String[] args) {
@@ -122,7 +122,7 @@ public class UserAccount implements Observer{
 	
 	
 	public void update(String notification) {
-		if(!isPayable()){
+		if(!isReceivable()){
 			emailbody = "Hello " +getUserFirstName() +",\n"+"You owe "+getPayableTo()+" $"+getAmountOwed();
 			EmailNotification.sendEmail(getUserEmail(),"Payment Details",emailbody );
 		}
@@ -143,9 +143,11 @@ public class UserAccount implements Observer{
 	    }
 
 	public void paysuccess(String notification) {
+		if(!isReceivable()){
 	      emailbody = "Hello "+getUserFirstName()+"\n"+
-	                     "Your payment to "+getPayableTo()+"of $"+getAmountOwed()+"is successful "+"\n";
+	                     "Your payment to "+getPayableTo()+"of $"+getAmountOwed()+" is successful "+"\n";
          EmailNotification.sendEmail(getUserEmail(),"Payment Success",emailbody );
+		}
 	    }
     
 }

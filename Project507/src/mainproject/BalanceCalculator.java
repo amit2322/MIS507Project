@@ -8,7 +8,7 @@ public class BalanceCalculator {
 	public List<UserAccount> balanceAccounts(List<UserAccount> users, Double amount){
 		int totalUsers=users.size();
     	for(UserAccount user: users){
-    		if(user.isPayable()){
+    		if(user.isReceivable()){
     			double amtRec= amount - (amount/totalUsers);
                         amtRec = FormatAmount(amtRec);
     			user.setAmountReceivable(amtRec);
