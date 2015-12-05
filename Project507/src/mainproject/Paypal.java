@@ -41,7 +41,7 @@ public class Paypal extends Payment
         setPaypalUserName(in.nextLine());
         System.out.println("Please enter your Paypal password:");
         setPaypalPassword(in.nextLine());
-        if(getPaypalPassword() == "paypalpassword")
+        if(getPaypalPassword().equals("paypalpassword"))
         {
             paymentStatus = true;
             System.out.println("Login successful");

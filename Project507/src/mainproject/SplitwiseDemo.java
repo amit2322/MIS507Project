@@ -43,32 +43,87 @@ public class SplitwiseDemo {
         System.out.println("\n");
     }
     
-    public boolean MakeAPayment()
+    public void SendAccountsSummary(Group groupMIS){
+    
+    	groupMIS.setNotification("Notify");
+
+    }
+    
+    public boolean MakeAPayment(List<UserAccount> groupDetails)
     {
         Scanner in = new Scanner(System.in);
         String payerName;
         String payeeName;
         String selectedPaymentMode="";
-        String paymentAmount="";
+        double paymentAmount;
         Payment p1, p2; 
         boolean paymentStatus;
+        boolean isPayerValid;
+        boolean isPayeeValid;
+        boolean isPaymentAmountValid;
         System.out.println("Payments................\n");
         System.out.println("Enter payer name:");
         payerName = in.nextLine();
+        isPayerValid = ValidatePayerName(groupDetails, payerName);
+        if(!isPayerValid)
+        {
+            System.out.println("Invalid payer name");
+            System.out.println("Re - Enter payer name:");
+            payerName = in.nextLine();
+        }
         System.out.println("Enter payee name:");
         payeeName = in.nextLine();
+        isPayeeValid = ValidatePayerName(groupDetails, payeeName);
+        if(!isPayeeValid || (payeeName == payerName))
+        {
+            System.out.println("Invalid payee name");
+            System.out.println("Re - Enter payee name:");
+            payeeName = in.nextLine();
+        }        
         System.out.println("Enter payment amount:");
-        paymentAmount = in.nextLine();
+        paymentAmount = new Double(in.nextLine());
+        isPaymentAmountValid = ValidatePaymentAmount(groupDetails, paymentAmount);
+        if(!isPaymentAmountValid)
+        {
+            System.out.println("Invalid payment amount");
+            System.out.println("Re - Enter payment amount:");
+            paymentAmount = new Double(in.nextLine());
+        }
         System.out.println("Choose payment mode:\n "
                 + "1. P for Paypal\n"
                 + "2. V for Venmo\n"
                 + "3. C for Credit Card");
         selectedPaymentMode = in.nextLine();
 	p1 = selectPay(selectedPaymentMode.toLowerCase());
-        paymentStatus = mypay(p1, payerName, payeeName, paymentAmount);
+        paymentStatus = mypay(p1, payerName, payeeName, String.valueOf(paymentAmount));
         return paymentStatus;
     }
     
+    public boolean ValidatePayerName(List<UserAccount> groupDetails, String payerName)
+    {
+        boolean IsValid = false;
+        for (int i = 0; i < groupDetails.size(); i++) 
+        {
+            if(groupDetails.get(i).getUserFirstName().equals(payerName))
+            {                
+                IsValid = true;
+            }
+        }
+        return IsValid;
+    }
+    
+    public boolean ValidatePaymentAmount(List<UserAccount> groupDetails, double paymentAmount)
+    {
+        boolean IsValid = false;
+        for (int i = 0; i < groupDetails.size(); i++) 
+        {
+            if(groupDetails.get(i).getAmountOwed() >= paymentAmount)
+            {                
+                IsValid = true;
+            }
+        }
+        return IsValid;
+    }
     public static void main(String[] args) {
         /*
     	UserAccount prashPerson=new UserAccount(1,"Prashant","Karnad","Prash1@gmail.com",0.0,25.0,"Murali","Amit");
@@ -108,6 +163,8 @@ public class SplitwiseDemo {
         NumberOfUsers = in.nextLine();
         int maxUsers = Integer.parseInt(NumberOfUsers);
         List<UserAccount> group= new ArrayList<UserAccount>(); 
+
+        Group groupMIS=new Group("GroupMIS", "Bill 1");
         for(int i=0;i<maxUsers;i++){
               System.out.println("User number " + (i+1) + " details");
               System.out.println("Enter first name:");
@@ -119,12 +176,19 @@ public class SplitwiseDemo {
               
               UserAccount userAcct=new UserAccount(i,firstName,lastName,emailId,0.0,0.0,"","");
               
-              group.add(userAcct);           
+              group.add(userAcct);  
+              
+              
+              //adding people to the group
+              groupMIS.registerObserver(userAcct);
+              groupMIS.setWelcome("GroupMIS");
+              
         }
         String amountPaidBy;
         double amountContributed;
         System.out.println("All users successfully added to the group:" + groupName);
         objDemo.ShowAccountsSummary(group); 
+       
         System.out.println("Record a transaction....");
         System.out.println("Amount paid by:");        
         amountPaidBy = in.nextLine();
@@ -144,7 +208,8 @@ public class SplitwiseDemo {
         }
         objDemo.calcuateAmount(group,amountContributed);
         objDemo.ShowAccountsSummary(group);
-        paymentStatus = objDemo.MakeAPayment();
+        objDemo.SendAccountsSummary(groupMIS);
+        paymentStatus = objDemo.MakeAPayment(group);
         if(paymentStatus == true)
         {
             System.out.println("Payment Successful");

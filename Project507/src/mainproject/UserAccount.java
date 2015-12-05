@@ -122,9 +122,12 @@ public class UserAccount implements Observer{
 	
 	
 	public void update(String notification) {
-	      emailbody = "Hello" +getUserFirstName() +"\n"+"You owe "+getPayableTo()+" $"+getAmountOwed()+
-	                      getReceivableBy()+" owes you $"+amountReceivable+"\n";
-	      EmailNotification.sendEmail(getUserEmail(),"Payment Details",emailbody );
+		if(!isPayable()){
+			emailbody = "Hello " +getUserFirstName() +",\n"+"You owe "+getPayableTo()+" $"+getAmountOwed();
+			EmailNotification.sendEmail(getUserEmail(),"Payment Details",emailbody );
+		}
+	      
+	      
 	    }
 
 	public void add(String notification) {
